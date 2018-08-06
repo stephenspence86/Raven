@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://player.gd" type="Script" id=1]
 [ext_resource path="res://assets/man/Character_03/Run/Character_01_Run_01.png" type="Texture" id=2]
@@ -33,6 +33,56 @@ custom_solver_bias = 0.0
 radius = 21.7116
 height = 24.4173
 
+[sub_resource type="Gradient" id=3]
+
+offsets = PoolRealArray( 0, 0.994083, 1 )
+colors = PoolColorArray( 0, 0, 0, 1, 0.832031, 0, 0, 0.425412, 1, 1, 1, 0 )
+
+[sub_resource type="GradientTexture" id=4]
+
+flags = 4
+gradient = SubResource( 3 )
+width = 2048
+
+[sub_resource type="ParticlesMaterial" id=5]
+
+render_priority = 0
+trail_divisor = 1
+emission_shape = 0
+flag_align_y = false
+flag_rotate_y = false
+flag_disable_z = true
+spread = 45.0
+flatness = 0.0
+gravity = Vector3( 0, 98, 0 )
+initial_velocity = 1.0
+initial_velocity_random = 0.0
+angular_velocity = 0.0
+angular_velocity_random = 0.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+linear_accel = 0.0
+linear_accel_random = 0.0
+radial_accel = 0.0
+radial_accel_random = 0.0
+tangential_accel = 0.0
+tangential_accel_random = 0.0
+damping = 0.0
+damping_random = 0.0
+angle = 0.0
+angle_random = 0.0
+scale = 1.0
+scale_random = 0.0
+color_ramp = SubResource( 4 )
+hue_variation = 0.0
+hue_variation_random = 0.0
+anim_speed = 0.0
+anim_speed_random = 0.0
+anim_offset = 0.0
+anim_offset_random = 0.0
+anim_loop = false
+_sections_unfolded = [ "Animation", "Color", "Gravity", "Hue Variation", "Scale" ]
+
 [node name="Player" type="Area2D" index="0"]
 
 position = Vector2( 48.8293, 48.525 )
@@ -56,12 +106,37 @@ speed = 400
 scale = Vector2( 2, 2 )
 frames = SubResource( 1 )
 animation = "right"
+frame = 1
+playing = true
 _sections_unfolded = [ "Transform", "Visibility" ]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." index="1"]
 
 position = Vector2( -5.87571, -1.51205 )
 shape = SubResource( 2 )
+
+[node name="Trail" type="Particles2D" parent="." index="2"]
+
+visible = false
+emitting = true
+amount = 10
+lifetime = 1.0
+one_shot = false
+preprocess = 0.0
+speed_scale = 2.0
+explosiveness = 0.0
+randomness = 0.0
+fixed_fps = 0
+fract_delta = true
+visibility_rect = Rect2( -100, -100, 200, 200 )
+local_coords = false
+draw_order = 0
+process_material = SubResource( 5 )
+texture = ExtResource( 2 )
+normal_map = null
+h_frames = 1
+v_frames = 1
+_sections_unfolded = [ "Drawing", "Process Material", "Textures", "Time" ]
 
 [connection signal="body_entered" from="." to="." method="_on_Player_body_entered"]
 
